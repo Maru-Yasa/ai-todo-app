@@ -14,41 +14,48 @@ export const GET = async (req: NextApiRequest) => {
             message: "'topic' must be defined as query string"
         })
     }
+
+    try {        
+        // TODO: define format instruction
+        const format = StructuredOutputParser.fromNamesAndDescriptions({
+            todos: "todos should be a string and separated with '|'",
+            description: "description should return the description of the topic, and has 5-10 words",
+            emoji: "emoji should represent the topic, should return singgle emoji"
+        })
     
-    // TODO: define format instruction
-    const format = StructuredOutputParser.fromNamesAndDescriptions({
-        todos: "todos should be a string and separated with '|'",
-        description: "description should return the description of the topic, and has 5-10 words",
-        emoji: "emoji should represent the topic, should return singgle emoji"
-    })
-
-    const formatInstruction = format.getFormatInstructions()
-
-    // TODO: define template prompts
-    const promptTemplate = new PromptTemplate({
-        inputVariables: ["topic"],
-        template: "Create step by step todos how to {topic} \n {format_instructions}",
-        partialVariables: { 
-            format_instructions: formatInstruction
-        }
-    })
+        const formatInstruction = format.getFormatInstructions()
     
-    // TODO: define model
-    const model = new OpenAI({
-        openAIApiKey: OPEN_AI_API_KEY,
-        temperature: 0,
-    })
-
-    // TODO: define input
-    const input = await promptTemplate.format({
-        topic: topic || "Make earth zero emmision"
-    })
+        // TODO: define template prompts
+        const promptTemplate = new PromptTemplate({
+            inputVariables: ["topic"],
+            template: "Create step by step todos how to {topic} \n {format_instructions}",
+            partialVariables: { 
+                format_instructions: formatInstruction
+            }
+        })
+        
+        // TODO: define model
+        const model = new OpenAI({
+            openAIApiKey: OPEN_AI_API_KEY,
+            temperature: 0,
+        })
     
-    // TODO: process the input
-    const raw = await model.call(input)
-    const response = await format.parse(raw)
-
-    return NextResponse.json({
-        data: response
-    });
+        // TODO: define input
+        const input = await promptTemplate.format({
+            topic: topic || "Make earth zero emmision"
+        })
+        
+        // TODO: process the input
+        const raw = await model.call(input)
+        const response = await format.parse(raw)
+    
+        return NextResponse.json({
+            data: response
+        });
+    } catch (error) {
+        return NextResponse.json({
+            message: "Someting went wrong"
+        }, { status: 422 })
+    }
+    
 }

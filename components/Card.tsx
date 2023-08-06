@@ -1,3 +1,5 @@
+'use client'
+
 import { DotsVerticalIcon, InfoCircledIcon } from "@radix-ui/react-icons"
 import { Button } from "./ui/button"
 import {
@@ -6,40 +8,44 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-  
+import { TodoSheet } from "./TodoSheet"
+
 
 interface TodoCardProps {
-    data?: Todo
+    data?: Todo,
+    deleteCallback?: () => void
 }
 
-export const TodoCard = ({  }: TodoCardProps) => {
+export const TodoCard = ({ data, deleteCallback }: TodoCardProps) => {
     return (
-    <div className="border rounded-lg p-4">
-        <div className="flex justify-between">
-          <h2 className='text-xl font-medium text-ellipsis line-clamp-2'>Make Earch zero emmision</h2>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <DotsVerticalIcon className="cursor-pointer" />              
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-                <DropdownMenuItem>Edit</DropdownMenuItem>
-                <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="border rounded-lg p-4">
+            <div className="flex justify-between">
+                <h2 className='text-xl font-medium text-ellipsis line-clamp-2 h-14'>{data?.title}</h2>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <DotsVerticalIcon className="cursor-pointer" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuItem onClick={deleteCallback} className="text-destructive">Delete</DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            </div>
+            <div className="mt-1">
+                <p className="text-sm font-light text-gray-700 text-ellipsis line-clamp-2 h-16">{data?.description}</p>
+            </div>
+            <div className="flex justify-between mt-3">
+                <div className="flex items-center gap-1 font-medium text-xs text-orange-500">
+                    <InfoCircledIcon />
+                    <span>Todo : {data?.todos?.filter((e) => e.status == 'todo').length}</span>
+                </div>
+                <div className="flex items-center gap-1 font-medium text-xs text-green-500">
+                    <InfoCircledIcon />
+                    <span>Complete : {data?.todos?.filter((e) => e.status == 'complete').length}</span>
+                </div>
+            </div>
+            <div className="mt-4">
+                <TodoSheet data={data} />
+            </div>
         </div>
-        <div className="flex justify-between mt-3">
-          <div className="flex items-center gap-1 font-medium text-xs text-orange-500">
-            <InfoCircledIcon />
-            <span>Todo : 5</span>
-          </div>
-          <div className="flex items-center gap-1 font-medium text-xs text-green-500">
-            <InfoCircledIcon />
-            <span>Complete : 7</span>
-          </div>
-        </div>
-        <div className="mt-4">
-          <Button variant={'outline'}>See Detail</Button>
-        </div>
-    </div>
     )
 }
