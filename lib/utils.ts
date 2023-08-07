@@ -5,11 +5,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const getQueryParamValue = (url: string, paramName: string) => {
-  const searchParams = new URLSearchParams(new URL(url).search);
-  return searchParams.get(paramName);
-};
-
 export const generateUUID = () => {
   'use client'
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -45,7 +40,7 @@ export const updateObjectByUUID = (key: string, uuid: string, obj: any) => {
     ...obj
   }
   dataNotInclude.push(data)
-  localStorage.setItem(key, JSON.stringify(dataNotInclude))
+  typeof window !== "undefined" && localStorage.setItem(key, JSON.stringify(dataNotInclude))
 }
 
 export const deleteArrayObjectLocalStorage = (key: string, objKey: string, filter: Array<string>) => {
@@ -55,7 +50,7 @@ export const deleteArrayObjectLocalStorage = (key: string, objKey: string, filte
     return;
   }
   data = data.filter((e: any) => !filter.includes(e[objKey]))
-  localStorage.setItem(key, JSON.stringify(data))
+  typeof window !== "undefined" && localStorage.setItem(key, JSON.stringify(data))
 }
 
 export const pushToLocalStorage = (key: string, obj: any) => {
@@ -65,5 +60,5 @@ export const pushToLocalStorage = (key: string, obj: any) => {
     data = []
   }
   data.push(obj)
-  localStorage.setItem(key, JSON.stringify(data))
+  typeof window !== "undefined" && localStorage.setItem(key, JSON.stringify(data))
 }

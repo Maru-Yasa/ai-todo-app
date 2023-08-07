@@ -6,19 +6,21 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
 import { deleteArrayObjectLocalStorage, generateUUID, parseResponseTodos, pushToLocalStorage } from '@/lib/utils'
-import { QuestionMarkIcon, ReloadIcon } from '@radix-ui/react-icons'
-import { ToastAction } from '@radix-ui/react-toast'
+import { ReloadIcon } from '@radix-ui/react-icons'
 import { useCallback, useEffect, useState } from 'react'
 
 export default function Home() {
 
+  const getTodo = () => typeof window !== "undefined" ? (JSON.parse(localStorage.getItem("_todo") as string)).reverse() : []
+  
   const { toast } = useToast()
   const [input, setInput] = useState<string>("")
-  const [todo, setTodo] = useState<Array<Todo>>((JSON.parse(localStorage.getItem("_todo") as string) || []))
+  const [todo, setTodo] = useState<Array<Todo>>(getTodo())
   const [state, setState] = useState<InputState>({
     isEmpty: true,
     isLoading: false
   })
+
 
   useEffect(() => {
     console.log('====================================');
@@ -26,7 +28,7 @@ export default function Home() {
     console.log("Github: https://github.com/maru-yasa/ai-todo-app");
     console.log('====================================');
     if (todo.length >= 1) {
-      setTodo((JSON.parse(localStorage.getItem("_todo") as string)).reverse())      
+      setTodo(getTodo())      
     }
   }, [])
 
@@ -46,14 +48,14 @@ export default function Home() {
 
   const handleDelete = useCallback((uuid: string) => {
     deleteArrayObjectLocalStorage("_todo", "uuid", [uuid])
-    setTodo((JSON.parse(localStorage.getItem("_todo") as string)).reverse())
+    setTodo(getTodo())
   }, [todo])
 
   const handleEdit = useCallback(() => {
     console.log('====================================');
     console.log("✨ Data refreshed");
     console.log('====================================');
-    setTodo((JSON.parse(localStorage.getItem("_todo") as string)).reverse())
+    setTodo(getTodo())
   }, [todo])
 
   const handleGenerate = async () => {
@@ -84,7 +86,7 @@ export default function Home() {
       todos: parseResponseTodos(data.todos)
     }
     pushToLocalStorage("_todo", _todo)
-    setTodo((JSON.parse(localStorage.getItem("_todo") as string)).reverse())
+    setTodo(getTodo())
   }
 
   return (
