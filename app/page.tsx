@@ -121,7 +121,7 @@ export default function Home() {
 
 
         </div>
-          {todo?.length < 1 && <>
+          {todo?.length < 1 || !todo && <>
             <div className="text-center">
               <h2>No todos yet</h2>
             </div>
