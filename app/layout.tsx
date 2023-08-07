@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/toaster'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter, Montserrat } from 'next/font/google'
@@ -25,6 +26,7 @@ export default function RootLayout({
         <footer className='w-full text-center text-sm font-medium mb-2'>
           Created with 🧠 by maru
         </footer>
+        <Toaster />
       </body>
     </html>
   )

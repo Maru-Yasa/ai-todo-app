@@ -3,12 +3,15 @@
 import { TodoCard } from '@/components/Card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { useToast } from '@/components/ui/use-toast'
 import { deleteArrayObjectLocalStorage, generateUUID, parseResponseTodos, pushToLocalStorage } from '@/lib/utils'
 import { QuestionMarkIcon, ReloadIcon } from '@radix-ui/react-icons'
+import { ToastAction } from '@radix-ui/react-toast'
 import { useCallback, useEffect, useState } from 'react'
 
 export default function Home() {
 
+  const { toast } = useToast()
   const [input, setInput] = useState<string>("")
   const [todo, setTodo] = useState<Array<Todo>>((JSON.parse(localStorage.getItem("_todo") as string) || []))
   const [state, setState] = useState<InputState>({
@@ -42,11 +45,25 @@ export default function Home() {
   }, [todo])
 
   const handleGenerate = async () => {
+
+    if (state.isEmpty) {
+      return;
+    }
+
     setState({ ...state, isLoading: true })
-    const response = await (await fetch(`/api/todo?topic=${input}`)).json()
+    const response = await fetch(`/api/todo?topic=${input}`)
     setState({ ...state, isLoading: false })
 
-    const data = response.data
+    if (!response.ok) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      })
+      return
+    }
+
+    const data = (await response.json()).data
     // TODO: proccess todo, split by '|' to create todos
     const _todo: Todo = {
       uuid: generateUUID(),
@@ -67,7 +84,6 @@ export default function Home() {
           placeholder={`Make earth zero emmision`}
         />
         <Button
-          disabled={state.isEmpty}
           onClick={handleGenerate}
         >
           {state.isLoading && <>
