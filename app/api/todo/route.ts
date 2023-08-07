@@ -18,7 +18,7 @@ export const GET = async (req: NextApiRequest) => {
     try {        
         // TODO: define format instruction
         const format = StructuredOutputParser.fromNamesAndDescriptions({
-            todos: "todos should be a string and separated with '|'",
+            todos: "todos should be a word of string and explain the detail and separated with '|'",
             description: "description should return the description of the topic, and has 5-10 words",
             emoji: "emoji should represent the topic, should return singgle emoji"
         })
@@ -52,7 +52,12 @@ export const GET = async (req: NextApiRequest) => {
         return NextResponse.json({
             data: response
         });
+
     } catch (error) {
+        console.log('====================================');
+        console.log(error);
+        console.log('====================================');
+        // TODO: handling prompt error
         return NextResponse.json({
             message: "Someting went wrong"
         }, { status: 422 })
