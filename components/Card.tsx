@@ -31,7 +31,7 @@ export const TodoCard = ({ data, deleteCallback }: TodoCardProps) => {
                 </DropdownMenu>
             </div>
             <div className="mt-1">
-                <p className="text-sm font-light text-gray-700 h-16 line-clamp-3 text-ellipsis">{data?.description}</p>
+                <p className="text-sm font-light text-gray-700 dark:text-white h-16 line-clamp-3 text-ellipsis">{data?.description}</p>
             </div>
             <div className="flex justify-between mt-3">
                 <div className="flex items-center gap-1 font-medium text-xs text-orange-500">

@@ -1,6 +1,7 @@
 'use client'
 
 import { TodoCard } from '@/components/Card'
+import { ModeToggle } from '@/components/ModeToggle'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
@@ -77,12 +78,15 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center gap-y-8 p-7 md:10 lg:p-24">
-      <div className="flex gap-3 max-w-lg w-full h-fit">
-        <Input
-          className='w-full'
-          onChange={(e) => setInput(e.target.value)}
-          placeholder={`Make earth zero emmision`}
-        />
+      <div className="flex flex-col md:flex-row gap-3 max-w-2xl w-full h-fit">
+        <div className="flex gap-3 w-full">
+          <ModeToggle />
+          <Input
+            className='w-full'
+            onChange={(e) => setInput(e.target.value)}
+            placeholder={`Make earth zero emmision`}
+          />
+        </div>
         <Button
           onClick={handleGenerate}
         >
