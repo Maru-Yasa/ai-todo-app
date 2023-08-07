@@ -11,7 +11,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 export default function Home() {
 
-  const getTodo = () => typeof window !== "undefined" ? (JSON.parse(localStorage.getItem("_todo") as string)).reverse() : []
+  const getTodo = () => typeof window !== "undefined" ? (JSON.parse(localStorage.getItem("_todo") as string))?.reverse() : []
   
   const { toast } = useToast()
   const [input, setInput] = useState<string>("")
@@ -27,7 +27,7 @@ export default function Home() {
     console.log("Are you interesting how this web app works?");
     console.log("Github: https://github.com/maru-yasa/ai-todo-app");
     console.log('====================================');
-    if (todo.length >= 1) {
+    if (todo?.length >= 1) {
       setTodo(getTodo())      
     }
   }, [])
@@ -115,13 +115,13 @@ export default function Home() {
       <div className="max-w-4xl w-full">
         <div className="w-full grid-cols-1 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
 
-          {todo.map((t) => {
+          {todo?.map((t) => {
             return <TodoCard editCallback={handleEdit} key={t.uuid} data={t} deleteCallback={() => handleDelete(t.uuid)} />
           })}
 
 
         </div>
-          {todo.length < 1 && <>
+          {todo?.length < 1 && <>
             <div className="text-center">
               <h2>No todos yet</h2>
             </div>
