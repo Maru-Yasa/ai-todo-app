@@ -95,7 +95,7 @@ export default function Home() {
           <Input
             className='w-full'
             onChange={(e) => setInput(e.target.value)}
-            placeholder={`Make earth zero emmision`}
+            placeholder={`Make earth zero emission`}
           />
         </div>
         <Button
