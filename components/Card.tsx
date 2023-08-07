@@ -13,10 +13,11 @@ import { TodoSheet } from "./TodoSheet"
 
 interface TodoCardProps {
     data?: Todo,
-    deleteCallback?: () => void
+    deleteCallback?: () => void,
+    editCallback: () => void,    
 }
 
-export const TodoCard = ({ data, deleteCallback }: TodoCardProps) => {
+export const TodoCard = ({ data, deleteCallback, editCallback }: TodoCardProps) => {
     return (
         <div className="border rounded-lg p-4">
             <div className="flex justify-between gap-x-2">
@@ -44,7 +45,7 @@ export const TodoCard = ({ data, deleteCallback }: TodoCardProps) => {
                 </div>
             </div>
             <div className="mt-4">
-                <TodoSheet data={data} />
+                <TodoSheet data={data} checkedCallback={editCallback} />
             </div>
         </div>
     )

@@ -32,6 +32,22 @@ export const parseResponseTodos = (raw: string) => {
   return todos
 }
 
+export const updateObjectByUUID = (key: string, uuid: string, obj: any) => {
+  'use client'
+  let data = JSON.parse(localStorage.getItem(key) as string)
+  if (!data) {
+    return;
+  }
+  let dataNotInclude = data.filter((e: any) => e.uuid != uuid)
+  data = data.filter((e: any) => e.uuid == uuid)[0]
+  data = {
+    ...data,
+    ...obj
+  }
+  dataNotInclude.push(data)
+  localStorage.setItem(key, JSON.stringify(dataNotInclude))
+}
+
 export const deleteArrayObjectLocalStorage = (key: string, objKey: string, filter: Array<string>) => {
   'use client'
   let data = JSON.parse(localStorage.getItem(key) as string)

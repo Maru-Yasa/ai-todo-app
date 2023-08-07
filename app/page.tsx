@@ -45,6 +45,13 @@ export default function Home() {
     setTodo((JSON.parse(localStorage.getItem("_todo") as string)).reverse())
   }, [todo])
 
+  const handleEdit = useCallback(() => {
+    console.log('====================================');
+    console.log("✨ Data refreshed");
+    console.log('====================================');
+    setTodo((JSON.parse(localStorage.getItem("_todo") as string)).reverse())
+  }, [todo])
+
   const handleGenerate = async () => {
 
     if (state.isEmpty) {
@@ -103,7 +110,7 @@ export default function Home() {
         <div className="w-full grid-cols-1 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
 
           {todo.map((t) => {
-            return <TodoCard key={t.uuid} data={t} deleteCallback={() => handleDelete(t.uuid)} />
+            return <TodoCard editCallback={handleEdit} key={t.uuid} data={t} deleteCallback={() => handleDelete(t.uuid)} />
           })}
 
 
