@@ -2,10 +2,9 @@ import { OPEN_AI_API_KEY } from "@/lib/config";
 import { getQueryParamValue } from "@/lib/utils";
 import { OpenAI, PromptTemplate } from "langchain";
 import { StructuredOutputParser } from "langchain/output_parsers";
-import { NextApiRequest } from "next";
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
-export const GET = async (req: NextApiRequest) => {
+export const GET = async (req: NextRequest) => {
     const url = req.url
     const topic = getQueryParamValue(url as string, "topic")
 
