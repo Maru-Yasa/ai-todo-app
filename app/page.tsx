@@ -21,6 +21,10 @@ export default function Home() {
   })
 
   useEffect(() => {
+    console.log('====================================');
+    console.log("Are you interesting how this web app works?");
+    console.log("Github: https://github.com/maru-yasa/ai-todo-app");
+    console.log('====================================');
     if (todo.length >= 1) {
       setTodo((JSON.parse(localStorage.getItem("_todo") as string)).reverse())      
     }
