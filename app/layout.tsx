@@ -26,7 +26,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           {children}
           <footer className='w-full text-center text-sm font-medium mb-2'>
-            Created with 🧠 by maru
+            Created with 🧠 by <a href="https://github.com/maru-yasa" className='underline text-blue-500'>maru</a>
           </footer>
           <Toaster />
         </ThemeProvider>
