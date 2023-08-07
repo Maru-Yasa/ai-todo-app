@@ -1,6 +1,6 @@
 'use client'
 
-import { DotsVerticalIcon, InfoCircledIcon } from "@radix-ui/react-icons"
+import { CheckCircledIcon, DotsVerticalIcon, InfoCircledIcon } from "@radix-ui/react-icons"
 import { Button } from "./ui/button"
 import {
     DropdownMenu,
@@ -40,7 +40,7 @@ export const TodoCard = ({ data, deleteCallback, editCallback }: TodoCardProps) 
                     <span>Todo : {data?.todos?.filter((e) => e.status == 'todo').length}</span>
                 </div>
                 <div className="flex items-center gap-1 font-medium text-xs text-green-500">
-                    <InfoCircledIcon />
+                    <CheckCircledIcon />
                     <span>Complete : {data?.todos?.filter((e) => e.status == 'complete').length}</span>
                 </div>
             </div>
