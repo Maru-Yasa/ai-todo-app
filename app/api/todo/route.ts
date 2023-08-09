@@ -40,7 +40,8 @@ export const GET = async (req: NextRequest) => {
         // TODO: define model
         const model = new OpenAI({
             openAIApiKey: OPEN_AI_API_KEY,
-            temperature: 0,
+            temperature: 0.8,
+            maxTokens: 1000
         })
 
         // TODO: define input
