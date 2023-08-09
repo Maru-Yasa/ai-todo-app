@@ -95,12 +95,14 @@ export default function Home() {
         <div className="flex gap-3 w-full">
           <ModeToggle />
           <Input
+            disabled={state.isLoading}
             className='w-full'
             onChange={(e) => setInput(e.target.value)}
             placeholder={`Make earth zero emission`}
           />
         </div>
         <Button
+          disabled={state.isLoading}
           onClick={handleGenerate}
         >
           {state.isLoading && <>
