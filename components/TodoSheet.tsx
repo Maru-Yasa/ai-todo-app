@@ -33,6 +33,8 @@ const Todo = ({ data, handleChecked }: { data: Todos, handleChecked: (todo: stri
 
 export const TodoSheet = ({ data, checkedCallback }: TodoSheetProps) => {
 
+
+
     const handleChecked = (todo: string, value: any) => {
         let dataPointer: Todos = data?.todos?.filter((e) => e.todo === todo)[0] as unknown as Todos
 
@@ -45,17 +47,18 @@ export const TodoSheet = ({ data, checkedCallback }: TodoSheetProps) => {
         let _todos = data?.todos?.filter((e) => e.todo != dataPointer.todo)
         _todos?.push(dataPointer)
 
+
         updateObjectByUUID("_todo", data?.uuid as string, {
             ...data,
             todos: _todos
         })
-        checkedCallback()
+
     }
 
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <Button variant="outline">See Detail</Button>
+                <Button variant="outline" onClick={checkedCallback}>See Detail</Button>
             </SheetTrigger>
             <SheetContent side={"bottom"} className="w-full h-[500px] md:px-24 py-10 overflow-scroll">
                 <SheetHeader>
