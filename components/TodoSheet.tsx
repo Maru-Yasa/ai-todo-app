@@ -60,7 +60,7 @@ export const TodoSheet = ({ data, checkedCallback }: TodoSheetProps) => {
             <SheetTrigger asChild>
                 <Button variant="outline" onClick={checkedCallback}>See Detail</Button>
             </SheetTrigger>
-            <SheetContent side={"bottom"} className="w-full h-[500px] md:px-24 py-10 overflow-scroll">
+            <SheetContent side={"bottom"} className="w-full h-[500px] md:px-24 py-10 overflow-y-scroll">
                 <SheetHeader>
                     <SheetTitle>{data?.title}</SheetTitle>
                     <SheetDescription>
